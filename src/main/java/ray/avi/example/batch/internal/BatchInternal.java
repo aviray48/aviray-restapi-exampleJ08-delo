@@ -1117,6 +1117,11 @@ public class BatchInternal {
 		inst = Instant.now().plus(1, java.time.temporal.ChronoUnit.DAYS);
 		dd = Date.from(inst);
 
+		String java_p_class_p_path = System.getProperty("java.class.path");
+		System.out.println("");
+		System.out.println(new Date() + ": java.class.path: " + System.getProperty("line.separator") + java_p_class_p_path);
+		System.out.println("");
+		
 		System.out.println("");
 		System.out.println(new Date() + ": MyTask SimpleBatch DONE");
 		log.info("{}|MyTask SimpleBatch DONE", UtilMethods.getMethodName());
