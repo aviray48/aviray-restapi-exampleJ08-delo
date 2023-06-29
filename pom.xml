@@ -7,7 +7,7 @@
 	<artifactId>aviray-restapi-exampleJ08-delo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>aviray-restapi-exampleJ08-delo</name>
+	<name>aviray-restapi-exampleJ08-delo blah</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
