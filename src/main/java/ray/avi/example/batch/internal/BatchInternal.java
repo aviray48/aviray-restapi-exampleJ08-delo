@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -58,9 +59,13 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import javax.annotation.PostConstruct;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import org.springframework.mock.web.MockHttpServletRequest;
 import lombok.NonNull;
 
 
@@ -236,6 +241,31 @@ public class BatchInternal {
 
 	}
 
+	public static String extractDateElements(String strDate) {
+		String year = null;
+		String month = null;
+		String day = null; 
+		try	{
+			if(strDate != null &&  !"".equals(strDate)) {
+				strDate = strDate.substring(0,10);
+				if(strDate != null)	{
+					java.util.StringTokenizer st = null;
+					st = new StringTokenizer(strDate, "-");
+					year = st.nextToken();
+					month = st.nextToken();
+					day = st.nextToken();
+				}
+			}
+			if(year == null || month == null || day == null) {
+				//It should never get here if things worked correctly, so if it does get here, throw an error.
+				throw new RuntimeException("Bad date for extractDateElements");
+			}
+		}
+		catch(Exception e){
+			log.error("Error in extractDateElements" , e);
+		}
+		return month + "/" + day + "/" + year;
+	}
 
 	public static void executeBatch(String[] args)
 	{
@@ -1121,6 +1151,27 @@ public class BatchInternal {
 		System.out.println("");
 		System.out.println(new Date() + ": java.class.path: " + System.getProperty("line.separator") + java_p_class_p_path);
 		System.out.println("");
+		
+		ServletRequest servletRequest = null;
+		java.sql.Timestamp dateObject = null;
+		String javaSqlTimestampString = null;
+		String javaSqlTimestampStringAfterExtractData = null;
+		try {
+			servletRequest = new HttpServletRequestWrapper(null);
+			log.info("Should not ever get here.");System.out.println();
+		}
+		catch(Exception e) {
+			log.error(MessageFormat.format("Error intentionally thrown, Error Message: {0}", e.getMessage()), e);System.out.println();
+		}
+		servletRequest = new MockHttpServletRequest();
+		((MockHttpServletRequest) servletRequest).setParameter("firstName", "Ploni");
+		((MockHttpServletRequest) servletRequest).setParameter("lastName", "Almoni");
+		dateObject = new java.sql.Timestamp(Long.parseLong(Long.toString(new Date().getTime())));
+		((MockHttpServletRequest) servletRequest).setAttribute("dateReq", dateObject);
+		javaSqlTimestampString = ((java.sql.Timestamp)servletRequest.getAttribute("dateReq")).toString();
+		log.info("The value of javaSqlTimestampString is: {}", javaSqlTimestampString);System.out.println();
+		javaSqlTimestampStringAfterExtractData = extractDateElements(javaSqlTimestampString);
+		log.info("The value of javaSqlTimestampStringAfterExtractData is: {}", javaSqlTimestampStringAfterExtractData);System.out.println();
 		
 		System.out.println("");
 		System.out.println(new Date() + ": MyTask SimpleBatch DONE");
