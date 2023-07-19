@@ -273,6 +273,9 @@ public class BatchInternal {
 		System.out.println(new Date() + ": MyTask SimpleBatch START");
 		log.info("{}|MyTask SimpleBatch START", UtilMethods.getMethodName());
 
+		StringBuffer batchStringBuffer = null;
+		batchStringBuffer = new StringBuffer();
+		
 		try
 		{
 			String hostname = InetAddress.getLocalHost().getHostName();
@@ -1172,6 +1175,30 @@ public class BatchInternal {
 		log.info("The value of javaSqlTimestampString is: {}", javaSqlTimestampString);System.out.println();
 		javaSqlTimestampStringAfterExtractData = extractDateElements(javaSqlTimestampString);
 		log.info("The value of javaSqlTimestampStringAfterExtractData is: {}", javaSqlTimestampStringAfterExtractData);System.out.println();
+		
+		String aYOrNStr = null;
+		byte byteValue = -128;
+		
+		aYOrNStr = "Y";
+		byteValue = (byte) ("Y".equalsIgnoreCase(aYOrNStr) ? 0 : 1);
+		log.info("For value of aYOrNStr {}, the value of byteValue is: {}", aYOrNStr, byteValue);System.out.println();
+		
+		aYOrNStr = "N";
+		byteValue = (byte) ("Y".equalsIgnoreCase(aYOrNStr) ? 0 : 1);
+		log.info("For value of aYOrNStr {}, the value of byteValue is: {}", aYOrNStr, byteValue);System.out.println();
+		
+		String yesOrNoString;
+		boolean yesOrNoStringIsY;
+		String yesOrNoStringIsYOutput = null;
+		yesOrNoString = null;
+		yesOrNoStringIsY = false;
+		yesOrNoStringIsY = "Y".equalsIgnoreCase(yesOrNoString);
+		log.info("The value of yesOrNoStringIsY is now: {}", yesOrNoStringIsY);System.out.println();
+		yesOrNoStringIsYOutput = "Y".equalsIgnoreCase(yesOrNoString) ? " disabled = 'disabled' " : "";
+		log.info("The value of yesOrNoStringIsYOutput is now: {}", yesOrNoStringIsYOutput);System.out.println();
+		yesOrNoString = "Y";
+		yesOrNoStringIsYOutput = "Y".equalsIgnoreCase(yesOrNoString) ? " disabled = 'disabled' " : "";
+		log.info("The value of yesOrNoStringIsYOutput is now: {}", yesOrNoStringIsYOutput);System.out.println();
 		
 		System.out.println("");
 		System.out.println(new Date() + ": MyTask SimpleBatch DONE");
