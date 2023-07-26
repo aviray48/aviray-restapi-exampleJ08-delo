@@ -59,7 +59,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import javax.annotation.PostConstruct;
@@ -91,6 +90,17 @@ public class BatchInternal {
 	static final String emailAddressJsonString =
 			"{ \"id\": 0, \"createTimeStamp\": \"2023-01-24T23:59:22.981+00:00\", \"createDBUserId\": \"ice_de\", \"createApplicationUserId\": \"ice_de\", \"createPrincipalName\": \"custdataJmsListRUDE\", \"createProgramName\": \"customer-data-email-edb\", \"lastUpdateTimeStamp\": \"2023-01-24T23:59:22.981+00:00\", \"lastUpdateDBUserId\": \"ice_de\", \"lastUpdateApplicationUserId\": \"ice_de\", \"lastUpdatePrincipalName\": \"custdataJmsListRUDE\", \"lastUpdateProgramName\": \"customer-data-email-edb\", \"totalUpdateCount\": 0, \"replicationId\": 0, \"customerId\": 0, \"customerNumber\": \"10039564\", \"operationalCountryCode\": \"de\", \"lineOfBusiness\": \"qvc\", \"memberNumber\": \"10039564\", \"emailAddress\": \"pa20230123@test.com\", \"bounceCounter\": 0, \"bouncedFlag\": \"N\", \"sendEmailIndicator\": false, \"emailGUIDText\": \"1e2f943f-db74-43f8-8ba2-32358d59805e\", \"lastUpdateUserId\": \"ice_de\" }"
 			;
+	
+	static final String LCADD = "LCADD";
+	static final String LOC_ADD_CARGO = "LOC_ADD_CARGO";
+	static final String RESULTS_ITEM = "Results_item";
+	static final String RESULTS_ITEM_DC_INDV = "Results_item_DC_INDV";
+	//static final String Results_item_DC_LOCMA = "Results_item_DC_LOCMA";
+	static final String RESULTS_COLL = "Results_coll";
+	static final String CLIENTID = "clientId";
+	static final String NHSEQNUM = "nHSequenceNum";
+	static final String ADMISSION_DATE = "admissionDate";
+	static final String ADMISSION_FROM_TO = "admissionFromTo";
 	
 	//The method annotated with the @PostConstruct annotation is never run here, this this class is never actually built into a bean.
 	//In order for the class to be built into a bean, it would need to be annotated with @Configuration or @Component or something similar.
@@ -1199,6 +1209,32 @@ public class BatchInternal {
 		yesOrNoString = "Y";
 		yesOrNoStringIsYOutput = "Y".equalsIgnoreCase(yesOrNoString) ? " disabled = 'disabled' " : "";
 		log.info("The value of yesOrNoStringIsYOutput is now: {}", yesOrNoStringIsYOutput);System.out.println();
+		
+		Map<String, Object> request = null;//(Map<String, Object>)
+		request = new HashMap<String, Object>();
+		Optional<String> opString = Optional.ofNullable(((String)request.get(ADMISSION_FROM_TO)));
+		opString.isPresent();
+		log.info("The value of opString.isPresent() is now: {}", opString.isPresent());System.out.println();
+		opString.map(reqString -> String.valueOf(reqString)).orElse(null);
+		String admissionFromToStringFromOp = opString.map(reqString -> String.valueOf(reqString)).orElse(null);
+		log.info("The value of admissionFromToStringFromOp is now: {}", admissionFromToStringFromOp);System.out.println();
+		Optional.ofNullable(((String)request.get(ADMISSION_FROM_TO))).map(reqString -> String.valueOf(reqString)).orElse(null);
+		log.info("The value of OptionalofNullableEtc is now: {}", Optional.ofNullable(((String)request.get(ADMISSION_FROM_TO))).map(reqString -> String.valueOf(reqString)).orElse(null));System.out.println();
+		request.put(ADMISSION_FROM_TO, "HOME");
+		log.info("The value of OptionalofNullableEtc is now: {}", Optional.ofNullable(((String)request.get(ADMISSION_FROM_TO))).map(reqString -> String.valueOf(reqString)).orElse(null));System.out.println();
+		
+		String caseWorkerProcessedYESNOStrIsYOutputSubmitAndProcessButton = "zzzz";
+		String buttonText = "ddddd";
+		StringBuffer sb = null;
+		sb = new StringBuffer(caseWorkerProcessedYESNOStrIsYOutputSubmitAndProcessButton
+				+ "onclick=\"javascript:"
+				+ "form1.SELECTED_INDV_ID.value='" + request.toString() + "';"
+				+ "form1.NURSING_HOME_SEQUENCE_NUM.value='" + String.valueOf(request.toString()) + "';"
+				+ "form1.PROCESSED_BY.value='" + admissionFromToStringFromOp + "';"
+				+ "form1.ADDITIONAL_COMMENTS_TO_BE_PROCESSED.value='" + admissionFromToStringFromOp + "';"
+				+ "form1.zzzzzzzzzzzz.value='" + admissionFromToStringFromOp + "';"
+				+ "setActionFieldAndSubmit(document.form1,'" + buttonText + "','N');return false;\" ")
+		;
 		
 		System.out.println("");
 		System.out.println(new Date() + ": MyTask SimpleBatch DONE");
