@@ -1235,6 +1235,26 @@ public class BatchInternal {
 				+ "form1.zzzzzzzzzzzz.value='" + admissionFromToStringFromOp + "';"
 				+ "setActionFieldAndSubmit(document.form1,'" + buttonText + "','N');return false;\" ")
 		;
+		char genderChar = 0;// the char value of '\u0000' is equivalent to the char with value of zero
+		String genderInputString = null;
+		String genderOutputString = null;
+		genderInputString = null;
+		genderOutputString = Optional.ofNullable(genderInputString).filter(genderCharStringhl -> genderCharStringhl.length() > 0).map(genderCharString -> String.valueOf(genderCharString)).orElse("Unknown");
+		log.info("The value of genderOutputString is now: {}", genderOutputString);System.out.println();
+		genderInputString = "";
+		genderOutputString = Optional.ofNullable(genderInputString).filter(genderCharStringhl -> genderCharStringhl.length() > 0).map(genderCharString -> String.valueOf(genderCharString)).orElse("Unknown");
+		log.info("The value of genderOutputString is now: {}", genderOutputString);System.out.println();
+		genderInputString = Character.toString(genderChar);
+		genderInputString = genderChar != '\u0000' ? Character.toString(genderChar) : "";
+		genderOutputString = Optional.ofNullable(genderInputString).filter(genderCharStringhl -> genderCharStringhl.length() > 0).map(genderCharString -> String.valueOf(genderCharString)).orElse("Unknown");
+		log.info("The value of genderOutputString is now: {}", genderOutputString);System.out.println();
+		genderChar = 'M';
+		genderInputString = Character.toString(genderChar);
+		genderInputString = genderChar != '\u0000' ? Character.toString(genderChar) : "";
+		genderOutputString = Optional.ofNullable(genderInputString).filter(genderCharStringhl -> genderCharStringhl.length() > 0).map(genderCharString -> String.valueOf(genderCharString)).orElse("Unknown");
+		log.info("The value of genderOutputString is now: {}", genderOutputString);System.out.println();
+		
+		
 		
 		System.out.println("");
 		System.out.println(new Date() + ": MyTask SimpleBatch DONE");
