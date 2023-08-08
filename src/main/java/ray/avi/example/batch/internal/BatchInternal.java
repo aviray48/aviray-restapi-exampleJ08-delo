@@ -1254,7 +1254,9 @@ public class BatchInternal {
 		genderOutputString = Optional.ofNullable(genderInputString).filter(genderCharStringhl -> genderCharStringhl.length() > 0).map(genderCharString -> String.valueOf(genderCharString)).orElse("Unknown");
 		log.info("The value of genderOutputString is now: {}", genderOutputString);System.out.println();
 		
+		log.info("The value of this byte is now: {}", Byte.parseByte("1"));System.out.println();
 		
+		log.info("The value of this byte is now: {}", new Byte((byte) 1));System.out.println();
 		
 		System.out.println("");
 		System.out.println(new Date() + ": MyTask SimpleBatch DONE");
