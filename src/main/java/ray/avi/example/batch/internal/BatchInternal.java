@@ -1256,7 +1256,7 @@ public class BatchInternal {
 		
 		log.info("The value of this byte is now: {}", Byte.parseByte("1"));System.out.println();
 		
-		log.info("The value of this byte is now: {}", new Byte((byte) 1));System.out.println();
+		log.info("The value of this byte is now: {}", new Byte((byte) 0));System.out.println();
 		
 		System.out.println("");
 		System.out.println(new Date() + ": MyTask SimpleBatch DONE");
