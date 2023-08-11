@@ -1258,6 +1258,41 @@ public class BatchInternal {
 		
 		log.info("The value of this byte is now: {}", new Byte((byte) 0));System.out.println();
 		
+		String[] stringArrOneTwoThree = {};
+      	Object[] objArr = {"One", "Two", "Three"};
+		stringArrOneTwoThree = new String[]{"One", "Two", "Three"};
+		String stringValue = String.join(", ", stringArrOneTwoThree);
+		log.info("The value of stringValue is now: {}", stringValue);System.out.println();
+		
+		String[] stringArray = null;
+		List<String> stringListToFromArray = null;
+		stringListToFromArray = new ArrayList<String>();
+		stringListToFromArray.add("UNIX");
+		stringListToFromArray.add("WINDOWS");
+		stringArray = stringListToFromArray.toArray(new String[0]);
+		log.info("The value of stringArray is now: {}", String.join(", ", stringArray));System.out.println();
+		stringArray = new String[]{"One", "Two", "Three"};
+		stringListToFromArray = Arrays.asList(stringArray);
+		log.info("The value of stringListToFromArray is now: {}", stringListToFromArray);System.out.println();
+		
+		request = new HashMap<String, Object>();
+		request.put("certainSeqNum", (long) 332211);
+		long certainSeqNum = 0;
+		try {
+			certainSeqNum = Long.parseLong((String) request.get("certainSeqNum"));
+			log.info("Worked for 'Long.parseLong((String) request.get(\"certainSeqNum\"))', value of certainSeqNum is: {}", certainSeqNum);System.out.println();
+		}
+		catch(Exception e) {
+			log.error(MessageFormat.format("Error Occurred for 'Long.parseLong((String) request.get(\"certainSeqNum\"))', Error Message: {0}", e.getMessage()), e);System.out.println();
+		}
+		try {
+			certainSeqNum = Long.parseLong(String.valueOf(request.get("certainSeqNum")));
+			log.info("Worked for 'Long.parseLong(String.valueOf(request.get(\"certainSeqNum\")))', value of certainSeqNum is: {}", certainSeqNum);System.out.println();
+		}
+		catch(Exception e) {
+			log.error(MessageFormat.format("Error Occurred for 'Long.parseLong(String.valueOf(request.get(\"certainSeqNum\")))', Error Message: {0}", e.getMessage()), e);System.out.println();
+		}
+	    
 		System.out.println("");
 		System.out.println(new Date() + ": MyTask SimpleBatch DONE");
 		log.info("{}|MyTask SimpleBatch DONE", UtilMethods.getMethodName());
