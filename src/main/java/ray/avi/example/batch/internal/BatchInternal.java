@@ -66,6 +66,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import org.springframework.mock.web.MockHttpServletRequest;
 import lombok.NonNull;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 
 
@@ -1293,6 +1296,58 @@ public class BatchInternal {
 			log.error(MessageFormat.format("Error Occurred for 'Long.parseLong(String.valueOf(request.get(\"certainSeqNum\")))', Error Message: {0}", e.getMessage()), e);System.out.println();
 		}
 	    
+		BigDecimal bigDecimal1 = new BigDecimal("124567890.0987654321");
+		BigDecimal bigDecimal2 = new BigDecimal("987654321.123456789");
+		  
+		// Addition of two BigDecimals 
+		bigDecimal1 = bigDecimal1.add(bigDecimal2); 
+		System.out.println("bigDecimal1 = " + bigDecimal1); 
+
+		// Multiplication of two BigDecimals 
+		bigDecimal1 = bigDecimal1.multiply(bigDecimal2); 
+		System.out.println("bigDecimal1 = " + bigDecimal1); 
+
+		// Subtraction of two BigDecimals 
+		bigDecimal1 = bigDecimal1.subtract(bigDecimal2); 
+		System.out.println("bigDecimal1 = " + bigDecimal1); 
+
+		// Division of two BigDecimals 
+		bigDecimal1 = bigDecimal1.divide(bigDecimal2); 
+		System.out.println("bigDecimal1 = " + bigDecimal1); 
+
+		// BigDecima1 raised to the power of 2 
+		bigDecimal1 = bigDecimal1.pow(2); 
+		System.out.println("bigDecimal1 = " + bigDecimal1); 
+
+		// Negate value of BigDecimal1 
+		bigDecimal1 = bigDecimal1.negate(); 
+		System.out.println("bigDecimal1 = " + bigDecimal1);
+		
+
+	    String decimalString01 = "4567.98";
+	    String decimalString01a = "4567.90";
+	    String decimalString02 = ".075";
+	    
+	    float floatDecimal01 = Float.valueOf(decimalString01);
+	    float floatDecimal02 = Float.valueOf(decimalString02);
+	    float floatDecimal03 = floatDecimal01 + (floatDecimal01 * floatDecimal02);
+		System.out.println("floatDecimal03 = " + floatDecimal03);
+	    
+		BigDecimal bigDecimal01 = new BigDecimal(decimalString01);
+		BigDecimal bigDecimal01a = new BigDecimal(decimalString01a);
+		BigDecimal bigDecimal02 = new BigDecimal(decimalString02);
+		BigDecimal bigDecimal03 = (bigDecimal01.multiply(bigDecimal02)).add(bigDecimal01);
+		System.out.println("bigDecimal03 = " + bigDecimal03);
+		BigDecimal bigDecimal04_HALF_EVEN = (bigDecimal01.multiply(bigDecimal02)).add(bigDecimal01).round(new MathContext(6, RoundingMode.HALF_EVEN));
+		System.out.println("bigDecimal04_HALF_EVEN = " + bigDecimal04_HALF_EVEN);
+		BigDecimal bigDecimal05_HALF_DOWN = (bigDecimal01.multiply(bigDecimal02)).add(bigDecimal01).round(new MathContext(6, RoundingMode.HALF_DOWN));
+		System.out.println("bigDecimal05_HALF_DOWN = " + bigDecimal05_HALF_DOWN);
+		BigDecimal bigDecimal06 = (bigDecimal01.multiply(bigDecimal02)).add(bigDecimal01).round(new MathContext(6, RoundingMode.FLOOR));
+		System.out.println("bigDecimal06 = " + bigDecimal06);
+		BigDecimal bigDecimal07 = (bigDecimal01a.round(new MathContext(6, RoundingMode.HALF_DOWN)).multiply(bigDecimal02)).add(bigDecimal01a);
+		System.out.println("bigDecimal07 = " + bigDecimal07);
+		
+		
 		System.out.println("");
 		System.out.println(new Date() + ": MyTask SimpleBatch DONE");
 		log.info("{}|MyTask SimpleBatch DONE", UtilMethods.getMethodName());
