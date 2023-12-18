@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
@@ -23,8 +24,14 @@ public class AppBatch {
 	public static void main(String[] args) {
 		final String classMethodName = "AppBatch.main";
 		logger.info("{}|Starting example-app-batch", classMethodName);
-		//System.exit(SpringApplication.exit(SpringApplication.run(AppBatch.class, args)));
-		BatchInternal.executeBatch(args);
+		System.exit(SpringApplication.exit(SpringApplication.run(AppBatch.class, args)));
+		//BatchInternal.executeBatch(args);
+		//System.exit(SpringApplication.exit(SpringApplication.run(BatchInternal.class, args)));
+	}
+	
+	@Bean
+	public BatchInternal BatchInternalRun(String[] args) {
+	    return new BatchInternal(args);
 	}
 
 }

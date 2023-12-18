@@ -76,6 +76,11 @@ import java.math.RoundingMode;
 @Slf4j
 public class BatchInternal {
 	
+	public BatchInternal(String[] args) {
+		log.info("{}|BatchInternal Constructor", UtilMethods.getMethodName());
+		executeBatch(args);
+	}
+	
 	static DateFormat simpleDateFormatFormatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss.SSS");
 	static java.time.format.DateTimeFormatter dateTimeFormatterFormatter = java.time.format.DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss.SSS");
 	static Calendar simpleCalendar = Calendar.getInstance();
