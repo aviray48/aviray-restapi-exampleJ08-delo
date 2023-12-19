@@ -114,7 +114,7 @@ public class BatchInternal {
 	//In order for the class to be built into a bean, it would need to be annotated with @Configuration or @Component or something similar.
 	//The only reason it is here is because I can never remember the exact name of the @PostConstruct annotation or how it works,
 	//so I put it here, where I will (hopefully) be able to find it easily.
-	@PostConstruct
+	//@PostConstruct
 	public void simpleCheckIfClassInstanceIsActuallyCreated() {
 		System.out.println("simpleCheckIfClassInstanceIsActuallyCreated: Did we get here?");
 	}
