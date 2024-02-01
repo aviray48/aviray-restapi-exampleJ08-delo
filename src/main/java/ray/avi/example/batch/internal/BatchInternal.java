@@ -972,7 +972,8 @@ public class BatchInternal {
 		int minBetweenIntAnIntB = Math.min(intA, intB);
 		log.info("The minimum value between {} and {} is: {}", intA, intB, minBetweenIntAnIntB);		
 
-
+		String javaClassPath = System.getProperty("java.class.path");
+		System.out.println("javaClassPath = " + javaClassPath);
 
 		String valMessage1 = null;
 		String valMessage2 = null;
@@ -1351,7 +1352,6 @@ public class BatchInternal {
 		System.out.println("bigDecimal06 = " + bigDecimal06);
 		BigDecimal bigDecimal07 = (bigDecimal01a.round(new MathContext(6, RoundingMode.HALF_DOWN)).multiply(bigDecimal02)).add(bigDecimal01a);
 		System.out.println("bigDecimal07 = " + bigDecimal07);
-		
 		
 		System.out.println("");
 		System.out.println(new Date() + ": MyTask SimpleBatch DONE");
