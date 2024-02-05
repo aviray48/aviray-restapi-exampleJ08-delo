@@ -975,6 +975,13 @@ public class BatchInternal {
 		String javaClassPath = System.getProperty("java.class.path");
 		System.out.println("javaClassPath = " + javaClassPath);
 
+		String javaVariablePassedInFromVMArgumentsInEclipse = System.getenv("VM_ARGUMENTS_VARIABLE");
+		System.out.println("javaVariablePassedInFromVMArgumentsInEclipse VALUE: " + (javaVariablePassedInFromVMArgumentsInEclipse != null ? javaVariablePassedInFromVMArgumentsInEclipse : "VALUE IS NULL"));
+		
+
+		String javaVariablePassedInFromRunConfigurationEnvironmentInEclipse = System.getenv("ENVIRONMENT_VARIABLE");
+		System.out.println("javaVariablePassedInFromRunConfigurationEnvironmentInEclipse VALUE: " + (javaVariablePassedInFromRunConfigurationEnvironmentInEclipse != null ? javaVariablePassedInFromRunConfigurationEnvironmentInEclipse : "VALUE IS NULL"));	
+		
 		String valMessage1 = null;
 		String valMessage2 = null;
 		String valMessage3 = null;
