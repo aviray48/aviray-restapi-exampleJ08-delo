@@ -59,6 +59,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import javax.annotation.PostConstruct;
@@ -1359,6 +1360,32 @@ public class BatchInternal {
 		System.out.println("bigDecimal06 = " + bigDecimal06);
 		BigDecimal bigDecimal07 = (bigDecimal01a.round(new MathContext(6, RoundingMode.HALF_DOWN)).multiply(bigDecimal02)).add(bigDecimal01a);
 		System.out.println("bigDecimal07 = " + bigDecimal07);
+		
+		
+		System.out.println("BatchInternal.class.getName(): " + BatchInternal.class.getName());System.out.println();
+		System.out.println("BatchInternal.class.getSimpleName(): " + BatchInternal.class.getSimpleName());System.out.println();
+		
+		Long valueOfTen = null;
+		Long valueOfNull = null;
+		
+
+		try {
+			valueOfTen = Long.valueOf(10);
+			log.info("valueOfTen is: " + valueOfTen);System.out.println();
+		}
+		catch(Exception e) {
+			log.error(MessageFormat.format("Unexpected Error Occurred for 'Long.valueOf(10)', Error Message: {0}", e.getMessage()), e);System.out.println();
+			log.info("valueOfTen cannot be determined due to error");System.out.println();
+		}
+		try {
+			valueOfNull = Long.valueOf(null);
+			log.info("valueOfNull is: " + valueOfNull);System.out.println();
+		}
+		catch(Exception e) {
+			log.error(MessageFormat.format("Expected Error Occurred for 'Long.valueOf(null)', Error Message: {0}", e.getMessage()), e);System.out.println();
+			log.info("valueOfNull cannot be determined due to error");System.out.println();
+		}
+		
 		
 		System.out.println("");
 		System.out.println(new Date() + ": MyTask SimpleBatch DONE");
