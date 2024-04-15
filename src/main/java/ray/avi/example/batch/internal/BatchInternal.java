@@ -1367,7 +1367,6 @@ public class BatchInternal {
 		
 		Long valueOfTen = null;
 		Long valueOfNull = null;
-		Long valueOfNone = null;
 		
 
 		try {
