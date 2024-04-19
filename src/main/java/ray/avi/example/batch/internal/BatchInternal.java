@@ -1386,6 +1386,23 @@ public class BatchInternal {
 			log.info("valueOfNull cannot be determined due to error");System.out.println();
 		}
 		
+		String stringWithQuotesForQuery = null;
+		String dataCode = null;
+		Long dataId = null;
+
+		stringWithQuotesForQuery = " '9632-AB99', '9632-AB98', '9632-AB97', '9632-AB96', '9632-AB95' ";
+		dataCode = "9632";
+		dataId = Long.valueOf(198808);
+		
+		String SQL_UPDATE_WITH_PARAMETERS_FOR_BATCH_INTERNAL =
+				" UPDATE TEST.DATA_TABLE_ONE SET VARCHAR_DATA_ONE = 'WQ' WHERE NUMBER_DATA_TWO = _dataIdStringParam_ AND VARCHAR_DATA_THREE = 'G' "
+			+   " AND VARCHAR_DATA_FOUR NOT IN ('MN', 'BV', 'CX') AND (VARCHAR_DATA_FIVE = '_dataCodeParam_' OR VARCHAR_DATA_SIX = '_dataCodeParam_' ) "
+			+   " AND VARCHAR_DATA_SVEN in ( _stringWithQuotesForQueryParam_ )";
+
+
+		String updatedSQLString = SQL_UPDATE_WITH_PARAMETERS_FOR_BATCH_INTERNAL.replace("_dataIdStringParam_", dataId.toString()).replace("_dataCodeParam_", dataCode).replace("_stringWithQuotesForQueryParam_", stringWithQuotesForQuery);
+		
+		log.info("updatedSQL is: " + updatedSQLString);System.out.println();
 		
 		System.out.println("");
 		System.out.println(new Date() + ": MyTask SimpleBatch DONE");
