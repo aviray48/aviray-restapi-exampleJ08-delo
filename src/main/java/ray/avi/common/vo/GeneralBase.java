@@ -11,7 +11,8 @@ public class GeneralBase implements Serializable {
 
 	private long id;
 	private long generalId;
-	private String generalNumber;
+	private String generalFlag;
+	private String generalMessage;
 	private String operationalCountryCode;
 
 }
