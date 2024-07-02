@@ -36,6 +36,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -286,6 +287,14 @@ public class BatchInternal {
 		return month + "/" + day + "/" + year;
 	}
 
+	public static void doSomethingMethodContainingLoggerConsumer(List<Long> longs, Consumer<String> listener) {
+		listener.accept("doSomethingMethodContainingLoggerConsumer - START");
+		String msg = String.format("The length of the List of longs is %s and the value of the first item in the list of longs is %s: ", longs != null ? longs.size() : "N/A", longs != null && !longs.isEmpty() ? longs.get(0) : "N/A");
+		listener.accept(msg);
+		listener.accept("doSomethingMethodContainingLoggerConsumer - END");
+		listener.accept("");
+	}
+	
 	public static void executeBatch(String[] args)
 	{
 		System.out.println("");
@@ -1403,6 +1412,22 @@ public class BatchInternal {
 		String updatedSQLString = SQL_UPDATE_WITH_PARAMETERS_FOR_BATCH_INTERNAL.replace("_dataIdStringParam_", dataId.toString()).replace("_dataCodeParam_", dataCode).replace("_stringWithQuotesForQueryParam_", stringWithQuotesForQuery);
 		
 		log.info("updatedSQL is: " + updatedSQLString);System.out.println();
+		
+		
+		String splitDashTest = null;
+		String[] splitDashTestArr = null;
+		splitDashTest = "123456-ABCDEF";
+		splitDashTestArr = splitDashTest.split("-");
+		log.info("The value of splitDashTestArr[0] is now: {}", splitDashTestArr[0]);System.out.println();
+		splitDashTest = "987654ZYXWVU";
+		splitDashTestArr = splitDashTest.split("-");
+		log.info("The value of splitDashTestArr[0] is now: {}", splitDashTestArr[0]);System.out.println();
+
+		Long valueOfSeven = Long.valueOf(7);
+		Long valueOfEight = Long.valueOf(8);
+		Long valueOfNine = Long.valueOf(9);
+		List<Long> someSmallLongs = java.util.Arrays.asList(valueOfSeven, valueOfEight, valueOfNine);
+		doSomethingMethodContainingLoggerConsumer(someSmallLongs, s->log.info(s));
 		
 		System.out.println("");
 		System.out.println(new Date() + ": MyTask SimpleBatch DONE");
