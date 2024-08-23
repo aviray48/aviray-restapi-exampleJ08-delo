@@ -1190,6 +1190,11 @@ public class BatchInternal {
 		System.out.println("");
 		System.out.println(new Date() + ": java.class.path: " + System.getProperty("line.separator") + java_p_class_p_path);
 		System.out.println("");
+
+		String extraSysProp = Optional.ofNullable(System.getProperty("extraSysProp")).map(exProp -> String.valueOf(exProp)).orElse("BLANK");
+		System.out.println("");
+		System.out.println(new Date() + ": extraSysProp: " + System.getProperty("line.separator") + extraSysProp);
+		System.out.println("");
 		
 		ServletRequest servletRequest = null;
 		java.sql.Timestamp dateObject = null;
