@@ -1381,6 +1381,7 @@ public class BatchInternal {
 		
 		Long valueOfTen = null;
 		Long valueOfNull = null;
+		Long valueOfEmptyString = null;
 		
 
 		try {
@@ -1398,6 +1399,14 @@ public class BatchInternal {
 		catch(Exception e) {
 			log.error(MessageFormat.format("Expected Error Occurred for 'Long.valueOf(null)', Error Message: {0}", e.getMessage()), e);System.out.println();
 			log.info("valueOfNull cannot be determined due to error");System.out.println();
+		}
+		try {
+			valueOfEmptyString = Long.valueOf(StringUtils.EMPTY);
+			log.info("valueOfEmptyString is: " + valueOfEmptyString);System.out.println();
+		}
+		catch(Exception e) {
+			log.error(MessageFormat.format("Expected Error Occurred for 'Long.valueOf(StringUtils.EMPTY)', Error Message: {0}", e.getMessage()), e);System.out.println();
+			log.info("valueOfEmptyString cannot be determined due to error");System.out.println();
 		}
 		
 		String stringWithQuotesForQuery = null;
