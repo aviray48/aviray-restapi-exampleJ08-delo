@@ -83,8 +83,6 @@ public class BatchInternal {
 		executeBatch(args);
 	}
 	
-	
-	
 	static DateFormat simpleDateFormatFormatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss.SSS");
 	static java.time.format.DateTimeFormatter dateTimeFormatterFormatter = java.time.format.DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss.SSS");
 	static Calendar simpleCalendar = Calendar.getInstance();
