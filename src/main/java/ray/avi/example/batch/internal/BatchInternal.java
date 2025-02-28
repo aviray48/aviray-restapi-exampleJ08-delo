@@ -3,6 +3,7 @@ package ray.avi.example.batch.internal;
 import org.springframework.context.annotation.Profile;
 import lombok.extern.slf4j.Slf4j;
 import ray.avi.common.util.UtilMethods;
+
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
@@ -25,6 +26,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Calendar.Builder;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -303,6 +305,138 @@ public class BatchInternal {
     public <T> String methodToDoSomethingB(String model) {
     	return null;
 	}
+    
+    public static Object getEntry (String strKey) {
+    	return getSessionEntry( strKey ) ;
+    }
+	
+	private static HashMap<String, Object> exampleHashMap;
+	
+    public static Object getSessionEntry ( String strKey ) {
+        return exampleHashMap.get( strKey ) ;
+    }
+    
+    public static <T> List<?> getEntryTypeSafeListOne (String strKey, Class<? extends T> clazz) {
+    	try {
+    		//(List<DataEventCDC>)(List<?>) unConsolidatedEventList
+    		Class<?> clazzL = List.class;
+    		clazzL.cast(getEntry(strKey));
+    		List<?> tList = (List<?>) clazzL.cast(getEntry(strKey));
+
+    		//List<T> tList = null;
+    		//tList = (List<T>)getEntry(strKey);
+
+    		return tList ;
+    	} 
+    	catch (ClassCastException e) {
+    		System.out.println(e.getMessage());
+    		throw e;
+    	}
+    }
+
+    
+    public static <T> List<T> getEntryTypeSafeListTwo (String strKey, Class<? extends T> clazz) {
+    	try {
+    		List<T> tList = new ArrayList<T>();
+    		List<Integer> li = new ArrayList<Integer>();
+    		//Class<? extends List> cli = li.getClass();
+    		//Object aa = li.getClass().cast(cli);
+    		tList = (List<T>)getEntry(strKey);
+    		tList = (new ArrayList<T>()).getClass().cast(getEntry(strKey));
+    		return tList ;
+    	} 
+    	catch (ClassCastException e) {
+    		System.out.println(e.getMessage());
+    		throw e;
+    	}
+    }
+
+    
+    public static List<?> getEntryTypeSafeListObjectToListQ (String strKey) {
+    	try {
+    		return (List<?>)getEntry(strKey);
+    	} 
+    	catch (ClassCastException e) {
+    		System.out.println(e.getMessage());
+    		throw e;
+    	}
+    }
+
+    
+    public static <T> List<T> getEntryTypeSafeListPartTwo (String strKey, Class<T> clazz) {
+    	try {
+    		List<T> tList = new ArrayList<T>();
+    		tList = (List<T>)getEntry(strKey);
+    		(new ArrayList<T>()).getClass();
+    		(new ArrayList<Integer>()).getClass().cast(getEntry(strKey));
+    		(new ArrayList<T>()).getClass().cast(getEntry(strKey));
+    		tList = (new ArrayList<T>()).getClass().cast(getEntry(strKey));
+    		tList = (new ArrayList()).getClass().cast(getEntry(strKey));
+    		return tList ;
+    	} 
+    	catch (ClassCastException e) {
+    		System.out.println(e.getMessage());
+    		throw e;
+    	}
+    }
+
+    public static <T> List<T> getEntryTypeSafeListV01 (String strKey, Class<? extends T> clazz) {
+    	List<?> tListQ = getEntryTypeSafeListObjectToListQ(strKey);
+    	List<T> tList = castListV1(clazz, tListQ);
+    	return tList ;
+    }
+
+    public static List<?> castObjectToRawListUsingWildCard (String strKey) {
+    	try {
+    		return (List<?>)getEntry(strKey);
+    	} 
+    	catch (ClassCastException e) {
+    		System.out.println(e.getMessage());
+    		throw e;
+    	}
+    }
+	
+    public static <T> List<T> castRawListToParameterizedList(Class<? extends T> clazz, Collection<?> rawCollection) {
+        List<T> result = new ArrayList<>(rawCollection.size());
+        for (Object o : rawCollection) {
+            try {
+                result.add(clazz.cast(o));
+            } catch (ClassCastException e) {
+        		System.out.println(e.getMessage());
+        		throw e;
+            }
+        }
+        return result;
+    }
+    
+    public static <T> List<T> getEntryTypeSafeList (String strKey, Class<? extends T> clazz) {
+    	return castRawListToParameterizedList(clazz, castObjectToRawListUsingWildCard(strKey));
+    }
+	
+	public static List<?> getIntegerList (String strKey, Class<Integer> clazz) {
+		List<Integer> integerList = null;
+		integerList = getEntryTypeSafeList(strKey, clazz);
+		return integerList;
+	}
+    
+	public static <T> List<T> castListV2(Class<? extends T> clazz, Collection<?> c) {
+	    List<T> r = new ArrayList<T>(c.size());
+	    for(Object o: c)
+	      r.add(clazz.cast(o));
+	    return r;
+	}
+	
+    public static <T> List<T> castListV1(Class<? extends T> clazz, Collection<?> rawCollection) {
+        List<T> result = new ArrayList<>(rawCollection.size());
+        for (Object o : rawCollection) {
+            try {
+                result.add(clazz.cast(o));
+            } catch (ClassCastException e) {
+                // log the exception or other error handling
+            }
+        }
+        return result;
+    }
     
 	private class Box<T> {
 	    private T t;
