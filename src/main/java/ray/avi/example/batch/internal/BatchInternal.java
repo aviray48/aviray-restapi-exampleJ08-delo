@@ -8,6 +8,7 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -293,6 +294,43 @@ public class BatchInternal {
 		listener.accept(msg);
 		listener.accept("doSomethingMethodContainingLoggerConsumer - END");
 		listener.accept("");
+	}
+	
+    public <T> String methodToDoSomethingA(T model) {
+    	return null;
+	}
+
+    public <T> String methodToDoSomethingB(String model) {
+    	return null;
+	}
+    
+	private class Box<T> {
+	    private T t;
+	    public void set(T t) { this.t = t; }
+	    public T get() { return t; }
+	    public T copyViaStringAnotherExample(Object model) {
+			return null;
+		}
+	}
+
+	private class RawTypeExample {
+	    private Object o;
+	    public void set(Object o) { this.o = o; }
+	    public Object get() { return o; }
+	    public Object generateANewObjectOfTypeA(Object model) {
+			return new Object();
+		}
+	    public Object generateANewObjectOfTypeB(Object model) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	    	java.lang.reflect.Constructor<?> ctor = model.getClass().getConstructor();
+	    	Object object = ctor.newInstance(new Object[] {});
+	    	return object;
+	    }
+	    public <T> T generateANewObjectOfTypeC(Class<T> teeClass) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	    	System.out.println(teeClass);
+	    	java.lang.reflect.Constructor<T> ctor = teeClass.getConstructor();
+	    	T tee = ctor.newInstance(new Object[] {});
+	    	return tee;
+	    }
 	}
 	
 	public static void executeBatch(String[] args)
